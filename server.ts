@@ -9,6 +9,7 @@ import userRoute from './routes/users'
 import companyRoute from './routes/company'
 import locationRoute from './routes/location'
 import malfunctionContactRoute from './routes/malfunctionContact'
+import measurementRoute from './routes/measurement'
 
 require('./patch.js')
 
@@ -42,6 +43,7 @@ router.use('/user', userRoute)
 router.use('/company', companyRoute)
 router.use('/location', locationRoute)
 router.use('/malfunctionContact', malfunctionContactRoute)
+router.use('/measurement', measurementRoute)
 
 /** Error handling */
 router.use((req, res, next) => {

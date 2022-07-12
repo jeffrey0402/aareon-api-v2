@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
       sendRes(res, 400, validate.errors, 'error')
       return
     }
-    await createMalfunctionContact(req.body.incidentId, req.body.sensorDeviceUuid, req.body.typeName)
+    await createMalfunctionContact(req.body.incidentId, req.body.deviceUuid, req.body.typeName)
   } else if (contentType === 'application/xml') {
     // Validate XML Schema
     const parser = new xml2js.Parser({ explicitArray: false })
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
           if (err) {
             sendRes(res, 400, 'parsing error', 'error')
           } else {
-            createMalfunctionContact(result.malfunctionContact.incidentId, result.malfunctionContact.sensorDeviceUuid, result.malfunctionContact.typeName)
+            createMalfunctionContact(result.malfunctionContact.incidentId, result.malfunctionContact.deviceUuid, result.malfunctionContact.typeName)
           }
         })
       }
@@ -49,12 +49,12 @@ router.post('/', async (req, res) => {
     })
   }
 
-  async function createMalfunctionContact (incidentId: string, sensorDeviceUuid: string, typeName: string) {
+  async function createMalfunctionContact (incidentId: string, deviceUuid: string, typeName: string) {
     try {
       const newMalfunctionContact = await prisma.malfunction_contacts.create({
         data: {
           incident_id: incidentId,
-          sensor_device_uuid: sensorDeviceUuid,
+          sensor_device_uuid: deviceUuid,
           type_name: typeName,
           created_at: new Date(),
           updated_at: new Date()

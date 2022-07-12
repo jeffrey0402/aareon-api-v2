@@ -6,7 +6,7 @@
     "description": "A contact for a malfunction",
     "required": [
         "incidentId",
-        "sensorDeviceUuid",
+        "deviceUuid",
         "typeName"
     ],
     "properties": {
@@ -18,7 +18,7 @@
             ],
             "minLength": 1
         },
-        "sensorDeviceUuid": {
+        "deviceUuid": {
             "type": "string",
             "description": "The uuid of the sensor device",
             "examples": [

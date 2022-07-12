@@ -4,7 +4,7 @@
   "type": "object",
   "title": "Measurement",
   "description": "Insert measurement in the database from external source",
-  "required": ["value", "timestamp", "sensorDeviceUuid", "typeName"],
+  "required": ["value", "timestamp", "deviceUuid", "typeName"],
   "properties": {
     "value": {
       "type": "number",
@@ -16,7 +16,7 @@
       "description": "UNIX timestamp of the measurement",
       "minimum": 1
     },
-    "sensorDeviceUuid": {
+    "deviceUuid": {
       "type": "string",
       "description": "Uuid of the sensor device",
       "pattern": "^([0-9A-F]{16})$"
