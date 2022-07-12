@@ -6,10 +6,28 @@
         <xs:complexType>
             <xs:sequence>
                 <!-- TOPDesk Incident ID, ex: M2207070001 -->
-                <xs:element name = "incidentId" type = "xs:string" />
+                <xs:element name = "incidentId">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <!-- Device deviceUuid, ex: 0018B21000008C47 -->
-                <xs:element name = "deviceUuid" type = "xs:string" />
-                <xs:element name = "typeName" type = "xs:string" />
+                <xs:element name = "deviceUuid">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="([0-9A-F]{16})"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name = "typeName">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

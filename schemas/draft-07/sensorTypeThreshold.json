@@ -9,12 +9,14 @@
         "deviceUuid": {
             "type": "string",
             "description": "sensor device uuid",
-            "examples": ["0018B21000008C47"]
+            "examples": ["0018B21000008C47"],
+            "pattern": "^([0-9A-F]{16})$"
         },
         "typeName": {
             "type": "string",
             "description": "sensor type name",
-            "examples": ["temperature"]
+            "examples": ["temperature"],
+            "minLength": 1
         },
         "minValue": {
             "type": "number",

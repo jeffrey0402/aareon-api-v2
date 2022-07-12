@@ -5,10 +5,28 @@
     <xs:element name = "sensor">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name = "deviceUuid" type = "xs:string" />
-                <xs:element name = "name" type = "xs:string" />
+                <xs:element name = "deviceUuid">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="([0-9A-F]{16})"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name = "name">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <xs:element name = "roomId" type = "xs:positiveInteger" />
-                <xs:element name = "description" type = "xs:string" />
+                <xs:element name = "description">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="5"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

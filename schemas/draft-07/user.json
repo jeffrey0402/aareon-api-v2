@@ -7,13 +7,15 @@
 		"name": {
 			"type": "string",
 			"description": "The user's full name",
-			"examples": ["John Doe"]
+			"examples": ["John Doe"],
+			"minLength": 1
 		},
 		"email": {
 			"type": "string",
 			"description": "The user's email address",
             "format": "email",
-			"examples": ["john.doe@example.com"]
+			"examples": ["john.doe@example.com"],
+			"minLength": 5
 		},
 		"phoneNumber": {
 			"type": "number",

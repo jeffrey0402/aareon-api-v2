@@ -16,7 +16,8 @@
             "description": "Device UUID",
             "examples": [
                 "0018B21000008C47"
-            ]
+            ],
+            "pattern": "^([0-9A-F]{16})$"
         },
         "name": {
             "type": "string",

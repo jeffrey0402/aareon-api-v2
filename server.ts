@@ -7,6 +7,7 @@ import cors from 'cors'
 /** Routes */
 import userRoute from './routes/users'
 import companyRoute from './routes/company'
+import locationRoute from './routes/location'
 
 require('./patch.js')
 
@@ -38,6 +39,7 @@ router.use((req, res, next) => {
 
 router.use('/user', userRoute)
 router.use('/company', companyRoute)
+router.use('/location', locationRoute)
 
 /** Error handling */
 router.use((req, res, next) => {

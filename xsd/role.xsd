@@ -6,7 +6,13 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name = "id" type = "xs:positiveInteger" />
-                <xs:element name = "name" type = "xs:string" />
+                <xs:element name = "name">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

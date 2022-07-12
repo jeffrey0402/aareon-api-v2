@@ -4,7 +4,7 @@ import xml2js from 'xml2js'
 import validator from 'xsd-schema-validator'
 import prisma from '../prisma'
 
-import * as schema from '../schemas/draft-07/company.json'
+import * as schema from '../schemas/draft-07/location.json'
 
 import addFormats from 'ajv-formats'
 import sendRes from '../functions/sendRes'
@@ -26,11 +26,11 @@ router.post('/', async (req, res) => {
       sendRes(res, 400, validate.errors, 'error')
       return
     }
-    await createCompany(req.body.name, req.body.representativeName, req.body.representativeEmail)
+    await createLocation(req.body.name, req.body.type, req.body.street, req.body.number, req.body.city, req.body.company)
   } else if (contentType === 'application/xml') {
     // Validate XML Schema
     const parser = new xml2js.Parser({ explicitArray: false })
-    validator.validateXML(req.body, 'xsd/company.xsd', (err) => {
+    validator.validateXML(req.body, 'xsd/location.xsd', (err) => {
       if (err) {
         sendRes(res, 400, err.message, 'error')
       } else {
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
           if (err) {
             sendRes(res, 400, 'parsing error', 'error')
           } else {
-            createCompany(result.company.name, result.company.representativeName, result.company.representativeEmail)
+            createLocation(result.location.name, result.location.type, result.location.street, result.location.number, result.location.city, result.location.company)
           }
         })
       }
@@ -49,23 +49,26 @@ router.post('/', async (req, res) => {
     })
   }
 
-  async function createCompany (name: string, representativeName: string, representativeEmail: string) {
+  async function createLocation (name: string, type: string, street: string, number: string, city: string, company: string) {
     try {
-      const newCompany = await prisma.companies.create({
+      const newLocation = await prisma.locations.create({
         data: {
           name,
-          representative_name: representativeName,
-          representative_email: representativeEmail,
+          type,
+          street,
+          number,
+          company,
+          city,
           updated_at: new Date(),
           created_at: new Date()
         }
       })
-      sendRes(res, 200, newCompany, 'company')
+      sendRes(res, 200, newLocation, 'success')
     } catch (e: any) {
       if (e.code === 'P2002') {
-        sendRes(res, 400, 'item already exists.', 'message')
+        sendRes(res, 400, 'Location already exists', 'error')
       } else {
-        sendRes(res, 400, 'internal server error', 'message')
+        sendRes(res, 400, 'Internal server error', 'error')
       }
     }
   }
@@ -73,32 +76,33 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const companies = await prisma.companies.findMany()
-    sendArrRes(res, 200, companies, 'company')
+    const locations = await prisma.locations.findMany()
+    sendArrRes(res, 200, locations, 'location')
   } catch (e: any) {
-    sendRes(res, 400, 'internal server error', 'message')
+    sendRes(res, 400, 'Internal server error', 'error')
   }
 })
 
-router.get('/:name', async (req, res) => {
+router.get('/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
   try {
-    const company = await prisma.companies.findFirst({
+    const location = await prisma.locations.findFirst({
       where: {
-        name: req.params.name
+        id
       }
     })
-    if (company) {
-      sendRes(res, 200, company, 'company')
+    if (location) {
+      sendRes(res, 200, location, 'location')
     } else {
-      sendRes(res, 400, 'item not found', 'message')
+      sendRes(res, 400, 'Location not found', 'error')
     }
-  } catch (e) {
-    sendRes(res, 400, 'internal server error', 'message')
+  } catch (e: any) {
+    sendRes(res, 400, 'Internal server error', 'error')
   }
 })
 
-router.patch('/:name', async (req, res) => {
-  const name = req.params.name
+router.patch('/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
   const contentType = req.headers['content-type']
   if (contentType === 'application/json') {
     // Validate JSON Schema
@@ -107,11 +111,11 @@ router.patch('/:name', async (req, res) => {
       sendRes(res, 400, validate.errors, 'error')
       return
     }
-    await updateCompany(req.body.name, req.body.representativeName, req.body.representativeEmail, name)
+    await updateLocation(id, req.body.name, req.body.type, req.body.street, req.body.number, req.body.city, req.body.company)
   } else if (contentType === 'application/xml') {
     // Validate XML Schema
     const parser = new xml2js.Parser({ explicitArray: false })
-    validator.validateXML(req.body, 'xsd/company.xsd', (err) => {
+    validator.validateXML(req.body, 'xsd/location.xsd', (err) => {
       if (err) {
         sendRes(res, 400, err.message, 'error')
       } else {
@@ -119,7 +123,7 @@ router.patch('/:name', async (req, res) => {
           if (err) {
             sendRes(res, 400, 'parsing error', 'error')
           } else {
-            updateCompany(result.company.name, result.company.representativeName, result.company.representativeEmail, name)
+            updateLocation(id, result.location.name, result.location.type, result.location.street, result.location.number, result.location.city, result.location.company)
           }
         })
       }
@@ -129,46 +133,48 @@ router.patch('/:name', async (req, res) => {
       error: 'Invalid content type. Expected application/json or application/xml'
     })
   }
-
-  async function updateCompany (name: string, representativeName: string, representativeEmail: string, id: string) {
+  async function updateLocation (id: number, name: string, type: string, street: string, number: string, city: string, company: string) {
     try {
-      const company = await prisma.companies.update({
+      const location = await prisma.locations.update({
         where: {
-          name: id
+          id
         },
         data: {
           name,
-          representative_name: representativeName,
-          representative_email: representativeEmail,
+          type,
+          street,
+          number,
+          company,
+          city,
           updated_at: new Date()
         }
       })
-      sendRes(res, 200, company, 'company')
-    } catch (e: any) {
-      if (e.code === 'P2002') {
-        sendRes(res, 400, 'item already exists.', 'message')
+      if (location) {
+        sendRes(res, 200, location, 'success')
       } else {
-        sendRes(res, 400, 'internal server error', 'message')
+        sendRes(res, 400, 'Location not found', 'error')
       }
+    } catch (e: any) {
+      sendRes(res, 400, 'Internal server error', 'error')
     }
   }
 })
 
-router.delete('/:name', async (req, res) => {
-  const name = req.params.name
+router.delete('/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
   try {
-    const company = await prisma.companies.delete({
+    const location = await prisma.locations.delete({
       where: {
-        name
+        id
       }
     })
-    sendRes(res, 200, company, 'company')
-  } catch (e: any) {
-    if (e.code === 'P2025') {
-      sendRes(res, 400, 'item not found', 'message')
+    if (location) {
+      sendRes(res, 200, location, 'success')
     } else {
-      sendRes(res, 400, 'invalid request', 'message')
+      sendRes(res, 400, 'Location not found', 'error')
     }
+  } catch (e: any) {
+    sendRes(res, 400, 'Internal server error', 'error')
   }
 })
 

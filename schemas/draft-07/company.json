@@ -5,14 +5,17 @@
 	"type": "object",
     "properties": {
         "name": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
         },
         "representativeName": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
         },
         "representativeEmail": {
             "type": "string",
-            "format": "email"
+            "format": "email",
+            "minLength": 5
         }
     },
     "required": ["name", "representativeName", "representativeEmail"]

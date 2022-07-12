@@ -14,7 +14,8 @@
             "description": "Name of the role.",
             "examples": [
                 "Admin"
-            ]
+            ],
+            "minLength": 1
         }
     }
 }

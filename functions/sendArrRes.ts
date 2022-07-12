@@ -2,12 +2,13 @@ import { Response } from 'express'
 /**
  * Build response based on the client Accept header.
  * It takes a response object, a status code, some data, and a pre-tag, and then it formats the response based on the request's Accept header.
+ * This function exists because sending arrays of objects does not go well with the xml builder.
  * @param {Response} response - Response - the response object
  * @param {number} statusCode - The HTTP status code to return.
  * @param {any} data - The data that you want to send back to the client.
  * @param {string} preTag - This is the tag that will be used to wrap the response data.
  */
-const sendRes = (response: Response, statusCode: number, data: any, preTag: string) => {
+const sendArrRes = (response: Response, statusCode: number, data: Array<any>, preTag: string) => {
   response.format({
     'application/json': () => {
       if (typeof data === 'string' || data instanceof String) {
@@ -19,21 +20,27 @@ const sendRes = (response: Response, statusCode: number, data: any, preTag: stri
       }
     },
     'application/xml': () => {
-      // TODO: fix XML only displaying strings.
-      // Broken: dates.
-      // build response in xml.
-      if (typeof data === 'string' || data instanceof String) {
-        const xml = `<${preTag}>${data}</${preTag}>`
-        response.status(statusCode).send(xml)
+      // manually build xml from array of objects
+      let xml = '<?xml version="1.0" encoding="UTF-8"?>'
+      if (preTag === 'company') {
+        xml += '<companies>'
       } else {
-        let xml = '<?xml version="1.0" encoding="UTF-8"?>'
+        xml += `<${preTag}s>`
+      }
+      data.forEach(item => {
         xml += `<${preTag}>`
-        for (const key in data) {
-          xml += `<${key}>${data[key]}</${key}>`
+        for (const key in item) {
+          xml += `<${key}>${item[key]}</${key}>`
         }
         xml += `</${preTag}>`
-        response.status(statusCode).send(xml)
+      })
+      if (preTag === 'company') {
+        xml += '</companies>'
+      } else {
+        xml += `</${preTag}s>`
       }
+
+      response.status(statusCode).send(xml)
     },
     default: () => {
       // log the request and respond with 406
@@ -42,4 +49,4 @@ const sendRes = (response: Response, statusCode: number, data: any, preTag: stri
   })
 }
 
-export default sendRes
+export default sendArrRes

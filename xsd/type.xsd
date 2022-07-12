@@ -5,9 +5,31 @@
     <xs:element name = "type">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name = "name" type = "xs:string" />
-                <xs:element name = "description" type = "xs:string" />
-                <xs:element name = "measurementUnit" type = "xs:string" />
+                <xs:element name = "name">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name = "description">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name = "measurementUnit">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="Celsius"/>
+                            <xs:enumeration value="Fahrenheit"/>
+                            <xs:enumeration value="Kelvin"/>
+                            <xs:enumeration value="Boolean"/>
+                            <xs:enumeration value="Percentage"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

@@ -15,18 +15,21 @@
             "description": "The id of the incident in the ticketing system (ex: TopDesk m220611001)",
             "examples": [
                 "m220611001"
-            ]
+            ],
+            "minLength": 1
         },
         "sensorDeviceUuid": {
             "type": "string",
             "description": "The uuid of the sensor device",
             "examples": [
                 "0018B21000008C47"
-            ]
+            ],
+            "pattern": "^([0-9A-F]{16})$"
         },
         "typeName": {
             "type": "string",
-            "description": "The name of the type of the sensor contact"
+            "description": "The name of the type of the sensor contact",
+            "minLength": 1
         }
     }
 }

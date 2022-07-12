@@ -5,8 +5,19 @@
     <xs:element name = "sensorTypeThreshold">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name = "deviceUuid" type = "xs:string" />
-                <xs:element name = "typeName" type = "xs:string" />
+                <xs:element name = "deviceUuid">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="([0-9A-F]{16})"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                <xs:element name = "typeName">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <xs:element name = "minValue" type = "xs:integer" />
                 <xs:element name = "maxValue" type = "xs:integer" />
                 <xs:element name = "duration" type = "xs:integer" />

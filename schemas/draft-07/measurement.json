@@ -18,11 +18,13 @@
     },
     "sensorDeviceUuid": {
       "type": "string",
-      "description": "Uuid of the sensor device"
+      "description": "Uuid of the sensor device",
+      "pattern": "^([0-9A-F]{16})$"
     },
     "typeName": {
       "type": "string",
-      "description": "Name of the type of the measurement"
+      "description": "Name of the type of the measurement",
+      "minLength": 1
     }
   }
 }

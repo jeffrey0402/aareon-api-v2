@@ -17,7 +17,8 @@
             "default": "",
             "examples": [
                 "Temperature"
-            ]
+            ],
+            "minLength": 1
         },
         "description": {
             "type": "string",
@@ -26,7 +27,8 @@
             "default": "",
             "examples": [
                 "Temperature sensor"
-            ]
+            ],
+            "minLength": 5
         },
         "measurementUnit": {
             "type": "string",

@@ -14,25 +14,35 @@
     "properties": {
         "name": {
             "type": "string",
-            "description": "The name of the location"
+            "description": "The name of the location",
+            "minLength": 1
         },
         "type": {
             "type": "string",
-            "description": "The type of the location. Ex: Office, Headquarters, House, School, etc."
+            "description": "The type of the location. Ex: Office, Headquarters, House, School, etc.",
+            "minLength": 1
         },
         "street": {
             "type": "string",
-            "description": "The street of the location"
+            "description": "The street of the location",
+            "minLength": 1
         },
         "number": {
             "type": "string",
             "description": "The number of the location",
-            "examples": ["1", "2b", "162"]
+            "examples": ["1", "2b", "162"],
+            "minLength": 1
         },
         "city": {
             "type": "string",
             "description": "The city of the location",
-            "examples": ["Emmen", "Amsterdam", "Rotterdam"]	
+            "examples": ["Emmen", "Amsterdam", "Rotterdam"]	,
+            "minLength": 1
+        },
+        "company": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The company that owns the location"
         }
     }
 }
