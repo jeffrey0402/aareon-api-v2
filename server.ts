@@ -8,6 +8,7 @@ import cors from 'cors'
 import userRoute from './routes/users'
 import companyRoute from './routes/company'
 import locationRoute from './routes/location'
+import malfunctionContactRoute from './routes/malfunctionContact'
 
 require('./patch.js')
 
@@ -40,6 +41,7 @@ router.use((req, res, next) => {
 router.use('/user', userRoute)
 router.use('/company', companyRoute)
 router.use('/location', locationRoute)
+router.use('/malfunctionContact', malfunctionContactRoute)
 
 /** Error handling */
 router.use((req, res, next) => {
