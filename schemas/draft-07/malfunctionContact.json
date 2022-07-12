@@ -1,0 +1,32 @@
+{
+	"$id": "http://example.com/malfunctionContact.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "title": "MalfunctionContact",
+    "description": "A contact for a malfunction",
+    "required": [
+        "incidentId",
+        "sensorDeviceUuid",
+        "typeName"
+    ],
+    "properties": {
+        "incidentId": {
+            "type": "string",
+            "description": "The id of the incident in the ticketing system (ex: TopDesk m220611001)",
+            "examples": [
+                "m220611001"
+            ]
+        },
+        "sensorDeviceUuid": {
+            "type": "string",
+            "description": "The uuid of the sensor device",
+            "examples": [
+                "0018B21000008C47"
+            ]
+        },
+        "typeName": {
+            "type": "string",
+            "description": "The name of the type of the sensor contact"
+        }
+    }
+}

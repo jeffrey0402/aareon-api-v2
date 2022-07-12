@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/sensor.json",
+    "type": "object",
+    "title": "Sensor Schema",
+    "description": "Schema for new Sensor objects",
+    "required": [
+        "deviceUuid",
+        "name",
+        "roomId",
+        "description"
+    ],
+    "properties": {
+        "deviceUuid": {
+            "type": "string",
+            "description": "Device UUID",
+            "examples": [
+                "0018B21000008C47"
+            ]
+        },
+        "name": {
+            "type": "string",
+            "description": "Sensor name",
+            "examples": [
+                "comfort1"
+            ]
+        },
+        "roomId": {
+            "type": "integer",
+            "description": "Room ID",
+            "examples": [
+                1
+            ],
+            "minimum": 1
+        },
+        "description": {
+            "type": "string",
+            "description": "Sensor description",
+            "examples": [
+                "Adeunis comfort o2 sensor. This sensor is located in the basement."
+            ]
+        }
+    }
+}

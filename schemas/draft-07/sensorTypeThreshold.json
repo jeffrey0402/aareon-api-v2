@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/sensorTypeThreshold.json",
+    "type": "object",
+    "title": "sensor type threshold",
+    "description": "threshold values for sensor types.",
+    "required": ["deviceUuid", "typeName", "minValue", "maxValue", "duration"],
+    "properties": {
+        "deviceUuid": {
+            "type": "string",
+            "description": "sensor device uuid",
+            "examples": ["0018B21000008C47"]
+        },
+        "typeName": {
+            "type": "string",
+            "description": "sensor type name",
+            "examples": ["temperature"]
+        },
+        "minValue": {
+            "type": "number",
+            "description": "min value",
+            "examples": [20, -10, -4.21]
+        },
+        "maxValue": {
+            "type": "number",
+            "description": "max value",
+            "examples": [30, -10, 21.52]
+        },
+        "duration": {
+            "type": "number",
+            "description": "duration in minutes. How long can the value be outside the threshold range before it is considered an alarm.",
+            "minimum": 1,
+            "examples": [10, 3]
+        }
+    }
+
+}

@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/type.json",
+    "type": "object",
+    "title": "Type Schema",
+    "description": "Schema for sensor types.",
+    "required": [
+        "name",
+        "description",
+        "measurementUnit"
+    ],
+    "properties": {
+        "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the sensor type.",
+            "default": "",
+            "examples": [
+                "Temperature"
+            ]
+        },
+        "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Description of the sensor type.",
+            "default": "",
+            "examples": [
+                "Temperature sensor"
+            ]
+        },
+        "measurementUnit": {
+            "type": "string",
+            "title": "Measurement unit",
+            "description": "Measurement unit of the sensor type.",
+            "enum": [
+                "Celsius",
+                "Fahrenheit",
+                "Kelvin",
+                "Boolean",
+                "Percentage"
+            ],
+            "examples": [
+                "Celsius",
+                "Fahrenheit",
+                "Kelvin"
+            ]
+        }
+    }
+}

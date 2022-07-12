@@ -1,0 +1,32 @@
+{
+	"$id": "http://example.com/user.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"description": "Schema for a user",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "The user's full name",
+			"examples": ["John Doe"]
+		},
+		"email": {
+			"type": "string",
+			"description": "The user's email address",
+            "format": "email",
+			"examples": ["john.doe@example.com"]
+		},
+		"phoneNumber": {
+			"type": "number",
+			"description": "The user's phone number excluding 0",
+			"examples": [612345678, 591616532],
+			"minimum": 100000000,
+			"maximum": 99999999999
+		},
+		"password": {
+			"type": "string",
+			"description": "The user's password. Minimum of 8 chars, one uppercase, one lowercase, one number and one special character",
+			"pattern": "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+		}
+	},
+	"required": ["name", "email", "phoneNumber", "password"]
+}

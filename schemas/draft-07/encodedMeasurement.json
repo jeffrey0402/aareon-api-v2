@@ -1,0 +1,89 @@
+{
+	"$id": "http://example.com/encodedMeasurement.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "minItems": 3,
+    "maxItems": 3,
+    "title": "Encoded Measurement",
+    "description": "Encoded data from adeunis sensor devices. Some field descriptions are undocumented, because it is not provided by Adeunis.",
+    "items": [
+        {
+            "type": "object",
+            "required": [
+                "bn",
+                "bt"
+            ],
+            "properties": {
+                "bn": {
+                    "type": "string",
+                    "title": "Device ID",
+                    "description": "String containing the device ID.",
+                    "examples": [
+                        "urn:dev:DEVEUI:0018B21000008C47:"
+                    ],
+                    "pattern": "^urn:dev:DEVEUI:([0-9A-F]{16}):$"
+
+                },
+                "bt": {
+                    "type": "integer",
+                    "title": "Timestamp",
+                    "description": "unix epoch timestamp.",
+                    "minimum": 1,
+                    "examples": [
+                        1652972601
+                    ]
+                }
+            }
+        },
+        {
+            "type": "object",
+            "required": [
+                "n",
+                "vs"
+            ],
+            "properties": {
+                "n": {
+                    "type": "string",
+                    "title": "type of data",
+                    "description": "string containing the type of data.",
+                    "examples": [
+                        "payload"
+                    ]
+                },
+                "vs": {
+                    "type": "string",
+                    "title": "value of data",
+                    "description": "string containing the value of data. in a hex frame",
+                    "examples": [
+                        "6a2000d440013900d33f013900d33e013a00d33b013800d238013a00d238013e"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "object",
+            "required": [
+                "n",
+                "v"
+            ],
+            "properties": {
+                "n": {
+                    "type": "string",
+                    "title": "n",
+                    "description": "undocumented value.",
+                    "examples": [
+                        "port"
+                    ]
+                },
+                "v": {
+                    "type": "number",
+                    "title": "v",
+                    "description": "Undocumented value. Possibly version?",
+                    "examples": [
+                        1
+                    ]
+                }
+            }
+        }
+    ]
+}

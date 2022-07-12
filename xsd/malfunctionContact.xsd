@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<xs:schema xmlns:xs = "http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance">
+
+    <xs:element name = "malfunctionContact">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- TOPDesk Incident ID, ex: M2207070001 -->
+                <xs:element name = "incidentId" type = "xs:string" />
+                <!-- Device deviceUuid, ex: 0018B21000008C47 -->
+                <xs:element name = "deviceUuid" type = "xs:string" />
+                <xs:element name = "typeName" type = "xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

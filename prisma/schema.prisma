@@ -1,0 +1,215 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model companies {
+  name                 String      @id(map: "companies_name_primary") @db.NVarChar(191)
+  representative_name  String      @db.NVarChar(191)
+  representative_email String      @db.NVarChar(191)
+  created_at           DateTime?   @db.DateTime
+  updated_at           DateTime?   @db.DateTime
+  locations            locations[]
+}
+
+model failed_jobs {
+  id         BigInt   @id(map: "PK__failed_j__3213E83FFB278CDA") @default(autoincrement())
+  uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.NVarChar(191)
+  connection String   @db.NVarChar(Max)
+  queue      String   @db.NVarChar(Max)
+  payload    String   @db.NVarChar(Max)
+  exception  String   @db.NVarChar(Max)
+  failed_at  DateTime @default(now(), map: "DF__failed_jo__faile__118A8A8C") @db.DateTime
+}
+
+model locations {
+  id         BigInt    @id(map: "PK__location__3213E83F8DCAD990") @default(autoincrement())
+  name       String    @db.NVarChar(191)
+  type       String    @db.NVarChar(191)
+  street     String    @db.NVarChar(191)
+  number     String    @db.NVarChar(191)
+  company    String    @db.NVarChar(191)
+  city       String    @db.NVarChar(191)
+  created_at DateTime? @db.DateTime
+  updated_at DateTime? @db.DateTime
+  companies  companies @relation(fields: [company], references: [name], onUpdate: NoAction, map: "locations_company_foreign")
+  rooms      rooms[]
+}
+
+model malfunction_contacts {
+  id                 BigInt    @id(map: "PK__malfunct__3213E83F30B47C08") @default(autoincrement())
+  incident_id        String    @db.NVarChar(191)
+  sensor_device_uuid String    @db.NVarChar(191)
+  type_name          String    @db.NVarChar(191)
+  created_at         DateTime? @db.DateTime
+  updated_at         DateTime? @db.DateTime
+  sensors            sensors   @relation(fields: [sensor_device_uuid], references: [device_uuid], onUpdate: NoAction, map: "malfunction_contacts_sensor_device_uuid_foreign")
+  types              types     @relation(fields: [type_name], references: [name], onUpdate: NoAction, map: "malfunction_contacts_type_name_foreign")
+
+  @@index([incident_id], map: "malfunction_contacts_incident_id_index")
+  @@index([sensor_device_uuid], map: "malfunction_contacts_sensor_device_uuid_index")
+  @@index([type_name], map: "malfunction_contacts_type_name_index")
+}
+
+model measurements {
+  value              Float
+  timestamp          DateTime  @db.DateTime
+  sensor_device_uuid String    @db.NVarChar(191)
+  type_name          String    @db.NVarChar(191)
+  created_at         DateTime? @db.DateTime
+  updated_at         DateTime? @db.DateTime
+  sensors            sensors   @relation(fields: [sensor_device_uuid], references: [device_uuid], onUpdate: NoAction, map: "measurements_sensor_device_uuid_foreign")
+  types              types     @relation(fields: [type_name], references: [name], onUpdate: NoAction, map: "measurements_type_name_foreign")
+
+  @@id([value, timestamp, sensor_device_uuid], map: "PK_measurements")
+  @@index([sensor_device_uuid], map: "measurements_sensor_device_uuid_index")
+  @@index([timestamp], map: "measurements_timestamp_index")
+  @@index([type_name], map: "measurements_type_name_index")
+}
+
+model migrations {
+  id        Int    @id(map: "PK__migratio__3213E83F47B45E71") @default(autoincrement())
+  migration String @db.NVarChar(191)
+  batch     Int
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model password_resets {
+  email      String    @db.NVarChar(191)
+  token      String    @db.NVarChar(191)
+  created_at DateTime? @db.DateTime
+
+  @@index([email], map: "password_resets_email_index")
+  @@ignore
+}
+
+model personal_access_tokens {
+  id             BigInt    @id(map: "PK__personal__3213E83FC6C060C5") @default(autoincrement())
+  tokenable_type String    @db.NVarChar(191)
+  tokenable_id   BigInt
+  name           String    @db.NVarChar(191)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @db.NVarChar(64)
+  abilities      String?   @db.NVarChar(Max)
+  last_used_at   DateTime? @db.DateTime
+  created_at     DateTime? @db.DateTime
+  updated_at     DateTime? @db.DateTime
+
+  @@index([tokenable_type, tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
+}
+
+model roles {
+  id         BigInt       @id(map: "PK__roles__3213E83F985B592D") @default(autoincrement())
+  name       String       @db.NVarChar(191)
+  created_at DateTime?    @db.DateTime
+  updated_at DateTime?    @db.DateTime
+  user_roles user_roles[]
+}
+
+model rooms {
+  id          BigInt    @id(map: "PK__rooms__3213E83F107F28F5") @default(autoincrement())
+  location_id BigInt
+  name        String    @db.NVarChar(191)
+  floor       Int
+  created_at  DateTime? @db.DateTime
+  updated_at  DateTime? @db.DateTime
+  locations   locations @relation(fields: [location_id], references: [id], onUpdate: NoAction, map: "rooms_location_id_foreign")
+  sensors     sensors[]
+}
+
+model sensor_type_tresholds {
+  sensor_device_uuid String    @db.NVarChar(191)
+  type_name          String    @db.NVarChar(191)
+  min_value          Float
+  max_value          Float
+  duration           Float
+  created_at         DateTime? @db.DateTime
+  updated_at         DateTime? @db.DateTime
+  sensors            sensors   @relation(fields: [sensor_device_uuid], references: [device_uuid], onUpdate: NoAction, map: "sensor_type_tresholds_sensor_device_uuid_foreign")
+  types              types     @relation(fields: [type_name], references: [name], onUpdate: NoAction, map: "sensor_type_tresholds_type_name_foreign")
+
+  @@id([sensor_device_uuid, type_name], map: "sensor_type_tresholds_sensor_device_uuid_type_name_primary")
+  @@index([sensor_device_uuid], map: "sensor_type_tresholds_sensor_device_uuid_index")
+  @@index([type_name], map: "sensor_type_tresholds_type_name_index")
+}
+
+model sensors {
+  device_uuid           String                  @id(map: "sensors_device_uuid_primary") @db.NVarChar(191)
+  name                  String                  @db.NVarChar(191)
+  battery               Int
+  room_id               BigInt
+  description           String                  @db.NVarChar(191)
+  created_at            DateTime?               @db.DateTime
+  updated_at            DateTime?               @db.DateTime
+  rooms                 rooms                   @relation(fields: [room_id], references: [id], onUpdate: NoAction, map: "sensors_room_id_foreign")
+  malfunction_contacts  malfunction_contacts[]
+  measurements          measurements[]
+  sensor_type_tresholds sensor_type_tresholds[]
+}
+
+model sessions {
+  id            String  @id(map: "sessions_id_primary") @db.NVarChar(191)
+  user_id       BigInt?
+  ip_address    String? @db.NVarChar(45)
+  user_agent    String? @db.NVarChar(Max)
+  payload       String  @db.NVarChar(Max)
+  last_activity Int
+
+  @@index([last_activity], map: "sessions_last_activity_index")
+  @@index([user_id], map: "sessions_user_id_index")
+}
+
+model sysdiagrams {
+  name         String @db.NVarChar(128)
+  principal_id Int
+  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B619B5D5CB9") @default(autoincrement())
+  version      Int?
+  definition   Bytes?
+
+  @@unique([principal_id, name], map: "UK_principal_name")
+}
+
+model types {
+  name                  String                  @id(map: "types_name_primary") @db.NVarChar(191)
+  description           String                  @db.NVarChar(191)
+  measurement_unit      String                  @db.NVarChar(191)
+  created_at            DateTime?               @db.DateTime
+  updated_at            DateTime?               @db.DateTime
+  malfunction_contacts  malfunction_contacts[]
+  measurements          measurements[]
+  sensor_type_tresholds sensor_type_tresholds[]
+}
+
+model user_roles {
+  user_id    BigInt
+  role_id    BigInt
+  created_at DateTime? @db.DateTime
+  updated_at DateTime? @db.DateTime
+  roles      roles     @relation(fields: [role_id], references: [id], onUpdate: NoAction, map: "user_roles_role_id_foreign")
+  users      users     @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "user_roles_user_id_foreign")
+
+  @@id([user_id, role_id], map: "PK_UserRoles")
+  @@index([role_id], map: "user_roles_role_id_index")
+  @@index([user_id], map: "user_roles_user_id_index")
+}
+
+model users {
+  id                        BigInt       @id(map: "PK__users__3213E83F361FC73A") @default(autoincrement())
+  name                      String       @db.NVarChar(191)
+  phone_number              String?      @db.NVarChar(191)
+  email                     String       @unique(map: "users_email_unique") @db.NVarChar(191)
+  email_verified_at         DateTime?    @db.DateTime
+  password                  String       @db.NVarChar(191)
+  remember_token            String?      @db.NVarChar(100)
+  current_team_id           BigInt?
+  profile_photo_path        String?      @db.NVarChar(2048)
+  created_at                DateTime?    @db.DateTime
+  updated_at                DateTime?    @db.DateTime
+  two_factor_secret         String?      @db.NVarChar(Max)
+  two_factor_recovery_codes String?      @db.NVarChar(Max)
+  two_factor_confirmed_at   DateTime?    @db.DateTime
+  user_roles                user_roles[]
+}

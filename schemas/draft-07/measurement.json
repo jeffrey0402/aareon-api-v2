@@ -1,0 +1,28 @@
+{
+  "$id": "http://example.com/measurement.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Measurement",
+  "description": "Insert measurement in the database from external source",
+  "required": ["value", "timestamp", "sensorDeviceUuid", "typeName"],
+  "properties": {
+    "value": {
+      "type": "number",
+      "description": "Value of the measurement",
+      "examples": ["10.0", "-10.0", "0.0", "-4.6"]
+    },
+    "timestamp": {
+      "type": "integer",
+      "description": "UNIX timestamp of the measurement",
+      "minimum": 1
+    },
+    "sensorDeviceUuid": {
+      "type": "string",
+      "description": "Uuid of the sensor device"
+    },
+    "typeName": {
+      "type": "string",
+      "description": "Name of the type of the measurement"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/room.json",
+  "type": "object",
+  "title": "Room",
+  "description": "Schema containing the information of a room",
+  "required": ["locationId", "name", "floor"],
+  "properties": {
+    "locationId": {
+      "type": "integer",
+      "description": "The id of the location",
+      "examples": [1],
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the room",
+      "examples": ["Dining Room", "Kitchen", "Living Room"]
+    },
+    "floor": {
+      "type": "number",
+      "description": "The floor of the room",
+      "examples": [1, 2, -3]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+	"$id": "http://example.com/company.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"description": "Schema for a company",
+	"type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "representativeName": {
+            "type": "string"
+        },
+        "representativeEmail": {
+            "type": "string",
+            "format": "email"
+        }
+    },
+    "required": ["name", "representativeName", "representativeEmail"]
+}

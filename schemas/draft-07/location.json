@@ -1,0 +1,38 @@
+{
+    "$id": "http://example.com/location.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Schema for Location objects",
+    "description": "Schema for a location",
+    "type": "object",
+    "required": [
+        "name",
+        "type",
+        "street",
+        "number",
+        "city"
+    ],
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The name of the location"
+        },
+        "type": {
+            "type": "string",
+            "description": "The type of the location. Ex: Office, Headquarters, House, School, etc."
+        },
+        "street": {
+            "type": "string",
+            "description": "The street of the location"
+        },
+        "number": {
+            "type": "string",
+            "description": "The number of the location",
+            "examples": ["1", "2b", "162"]
+        },
+        "city": {
+            "type": "string",
+            "description": "The city of the location",
+            "examples": ["Emmen", "Amsterdam", "Rotterdam"]	
+        }
+    }
+}
