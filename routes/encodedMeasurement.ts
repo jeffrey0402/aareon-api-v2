@@ -205,3 +205,5 @@ function getAvg (arr: Array<number>) {
   })
   return total / arr.length
 }
+
+export = router

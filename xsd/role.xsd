@@ -5,7 +5,6 @@
     <xs:element name = "role">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name = "id" type = "xs:positiveInteger" />
                 <xs:element name = "name">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">

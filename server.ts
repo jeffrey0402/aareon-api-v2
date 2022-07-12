@@ -10,6 +10,10 @@ import companyRoute from './routes/company'
 import locationRoute from './routes/location'
 import malfunctionContactRoute from './routes/malfunctionContact'
 import measurementRoute from './routes/measurement'
+import encodedMeasurementRoute from './routes/encodedMeasurement'
+import roleRoute from './routes/role'
+import roomRoute from './routes/room'
+import sensorRoute from './routes/sensor'
 
 require('./patch.js')
 
@@ -44,6 +48,10 @@ router.use('/company', companyRoute)
 router.use('/location', locationRoute)
 router.use('/malfunctionContact', malfunctionContactRoute)
 router.use('/measurement', measurementRoute)
+router.use('/addData', encodedMeasurementRoute)
+router.use('/role', roleRoute)
+router.use('/room', roomRoute)
+router.use('/sensor', sensorRoute)
 
 /** Error handling */
 router.use((req, res, next) => {
