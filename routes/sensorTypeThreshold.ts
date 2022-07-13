@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
           if (err) {
             sendRes(res, 400, 'parsing error', 'error')
           } else {
-            createSensorTypeThreshold(result.sensorTypeThreshold.deviceUuid, result.sensorTypeThreshold.typeName, result.sensorTypeThreshold.minValue, result.sensorTypeThreshold.maxValue, result.sensorTypeThreshold.duration)
+            createSensorTypeThreshold(result.sensorTypeThreshold.deviceUuid, result.sensorTypeThreshold.typeName, parseFloat(result.sensorTypeThreshold.minValue), parseFloat(result.sensorTypeThreshold.maxValue), parseFloat(result.sensorTypeThreshold.duration))
           }
         })
       }
@@ -121,7 +121,7 @@ router.patch('/:id/:typeName', async (req, res) => {
           if (err) {
             sendRes(res, 400, 'parsing error', 'error')
           } else {
-            updateSensorTypeThreshold(result.sensorTypeThreshold.deviceUuid, result.sensorTypeThreshold.typeName, result.sensorTypeThreshold.minValue, result.sensorTypeThreshold.maxValue, result.sensorTypeThreshold.duration)
+            updateSensorTypeThreshold(result.sensorTypeThreshold.deviceUuid, result.sensorTypeThreshold.typeName, parseFloat(result.sensorTypeThreshold.minValue), parseFloat(result.sensorTypeThreshold.maxValue), parseFloat(result.sensorTypeThreshold.duration))
           }
         })
       }

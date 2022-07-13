@@ -56,8 +56,4 @@ const sendArrRes = (response: Response, statusCode: number, data: Array<any>, pr
   })
 }
 
-const camalize = function camalize (str: string) {
-  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
-}
-
 export default sendArrRes

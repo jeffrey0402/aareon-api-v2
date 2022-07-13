@@ -11,6 +11,7 @@
                             <xs:pattern value="([0-9A-F]{16})"/>
                         </xs:restriction>
                     </xs:simpleType>
+                </xs:element>
                 <xs:element name = "typeName">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
@@ -18,9 +19,9 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name = "minValue" type = "xs:integer" />
-                <xs:element name = "maxValue" type = "xs:integer" />
-                <xs:element name = "duration" type = "xs:integer" />
+                <xs:element name = "minValue" type = "xs:float" />
+                <xs:element name = "maxValue" type = "xs:float" />
+                <xs:element name = "duration" type = "xs:float" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>

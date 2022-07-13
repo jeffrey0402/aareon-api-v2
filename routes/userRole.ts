@@ -21,7 +21,7 @@ router.post('/:userId/:roleId', async (req, res) => {
       })
       sendRes(res, 200, userRole, 'success')
     } catch (err) {
-      sendRes(res, 400, err, 'error')
+      sendRes(res, 400, 'user or role does not exist', 'error')
     }
   } else {
     sendRes(res, 400, 'Invalid request', 'error')
@@ -29,7 +29,7 @@ router.post('/:userId/:roleId', async (req, res) => {
 })
 
 // Get all roles from user
-router.get('/:userId', async (req, res) => {
+router.get('/user/:userId', async (req, res) => {
   const userId = parseInt(req.params.userId)
   if (!isNaN(userId) && userId > 0) {
     try {
@@ -48,7 +48,7 @@ router.get('/:userId', async (req, res) => {
 })
 
 // get all users from role
-router.get('/:roleId', async (req, res) => {
+router.get('/role/:roleId', async (req, res) => {
   const roleId = parseInt(req.params.roleId)
   if (!isNaN(roleId) && roleId > 0) {
     try {
@@ -63,6 +63,16 @@ router.get('/:roleId', async (req, res) => {
     }
   } else {
     sendRes(res, 400, 'Invalid request', 'error')
+  }
+})
+
+// get all userRoles
+router.get('/', async (req, res) => {
+  try {
+    const userRoles = await prisma.user_roles.findMany()
+    sendArrRes(res, 200, userRoles, 'userRole')
+  } catch (err) {
+    sendRes(res, 400, err, 'error')
   }
 })
 

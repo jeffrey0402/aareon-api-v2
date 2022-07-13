@@ -33,7 +33,7 @@ const sendRes = (response: Response, statusCode: number, data: any, preTag: stri
       } else {
         let xml = '<?xml version="1.0" encoding="UTF-8"?>'
         xml += `<${preTag}>`
-        for (let key in data) {
+        for (const key in data) {
           xml += `<${_.camelCase(key)}>${data[key]}</${_.camelCase(key)}>`
         }
         xml += `</${preTag}>`
@@ -45,9 +45,6 @@ const sendRes = (response: Response, statusCode: number, data: any, preTag: stri
       response.status(406).send('Not Acceptable')
     }
   })
-}
-const camalize = function camalize (str: string) {
-  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
 }
 
 export default sendRes
