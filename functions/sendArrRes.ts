@@ -29,7 +29,8 @@ const sendArrRes = (response: Response, statusCode: number, data: Array<any>, pr
       }
       data.forEach(item => {
         xml += `<${preTag}>`
-        for (const key in item) {
+        for (let key in item) {
+          key = camalize(key)
           xml += `<${key}>${item[key]}</${key}>`
         }
         xml += `</${preTag}>`
@@ -47,6 +48,10 @@ const sendArrRes = (response: Response, statusCode: number, data: Array<any>, pr
       response.status(406).send('Not Acceptable')
     }
   })
+}
+
+const camalize = function camalize (str: string) {
+  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
 }
 
 export default sendArrRes

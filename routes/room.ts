@@ -126,7 +126,7 @@ router.patch('/:id', async (req, res) => {
           if (err) {
             sendRes(res, 400, 'parsing error', 'error')
           } else {
-            updateRoom(id, result.room.name, result.room.floor)
+            updateRoom(id, result.room.name, parseInt(result.room.floor))
           }
         })
       }

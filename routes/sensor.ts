@@ -56,7 +56,7 @@ router.post('/', async (req, res) => {
             createSensor(
               result.sensor.deviceUuid,
               result.sensor.name,
-              result.sensor.roomId,
+              parseInt(result.sensor.roomId),
               result.sensor.description
             )
           }
@@ -168,7 +168,7 @@ router.patch('/:id', async (req, res) => {
         data: {
           name: sensor.name,
           battery: sensor.battery,
-          room_id: sensor.roomId,
+          room_id: parseInt(sensor.roomId),
           description: sensor.description,
           updated_at: new Date()
         }
