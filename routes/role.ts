@@ -79,6 +79,23 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  try {
+    const role = await prisma.roles.findFirst({
+      where: {
+        id: parseInt(req.params.id)
+      }
+    })
+    if (role) {
+      sendRes(res, 200, role, 'role')
+    } else {
+      sendRes(res, 400, 'item not found', 'message')
+    }
+  } catch (e) {
+    sendRes(res, 400, 'internal server error', 'message')
+  }
+})
+
 router.patch('/:id', async (req, res) => {
   const id = parseInt(req.params.id)
   const contentType = req.headers['content-type']

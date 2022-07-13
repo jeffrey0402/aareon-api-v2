@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
             sendRes(res, 400, 'parsing error', 'error')
           } else {
             // Create password hash in $2b$10$ format.
-            const hash = bcrypt.hashSync(req.body.password, 10)
+            const hash = bcrypt.hashSync(result.user.password, 10)
             // Add user to the database
             createUser(result.user.name, result.user.email, result.user.phoneNumber, hash)
           }
@@ -141,7 +141,7 @@ router.patch('/:id', async (req, res) => {
           if (err) {
             sendRes(res, 400, 'parsing error', 'error')
           } else {
-            const hash = bcrypt.hashSync(req.body.password, 10)
+            const hash = bcrypt.hashSync(result.user.password, 10)
             updateUser(result.user.name, result.user.email, result.user.phoneNumber, hash)
           }
         })

@@ -39,9 +39,9 @@ router.post('/', async (req, res) => {
             sendRes(res, 400, 'parsing error', 'error')
           } else {
             createRoom(
-              result.room.locationId,
+              parseInt(result.room.locationId),
               result.room.name,
-              result.room.floor
+              parseInt(result.room.floor)
             )
           }
         })
@@ -70,6 +70,7 @@ router.post('/', async (req, res) => {
       if (err.code === 'P2002') {
         sendRes(res, 400, 'item already exists.', 'message')
       } else {
+        console.log(err)
         sendRes(res, 400, 'internal server error', 'message')
       }
     }
@@ -161,6 +162,24 @@ router.patch('/:id', async (req, res) => {
         sendRes(res, 400, 'internal server error', 'message')
       }
     }
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+  try {
+    const room = await prisma.rooms.delete({
+      where: {
+        id
+      }
+    })
+    if (room) {
+      sendRes(res, 200, room, 'success')
+    } else {
+      sendRes(res, 400, 'item not found', 'message')
+    }
+  } catch (e) {
+    sendRes(res, 400, 'internal server error', 'message')
   }
 })
 
