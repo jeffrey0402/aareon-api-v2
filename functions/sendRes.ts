@@ -34,8 +34,7 @@ const sendRes = (response: Response, statusCode: number, data: any, preTag: stri
         let xml = '<?xml version="1.0" encoding="UTF-8"?>'
         xml += `<${preTag}>`
         for (let key in data) {
-          key = camalize(key)
-          xml += `<${key}>${data[key]}</${key}>`
+          xml += `<${_.camelCase(key)}>${data[key]}</${_.camelCase(key)}>`
         }
         xml += `</${preTag}>`
         response.status(statusCode).send(xml)

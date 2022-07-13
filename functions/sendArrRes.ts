@@ -36,9 +36,8 @@ const sendArrRes = (response: Response, statusCode: number, data: Array<any>, pr
       }
       data.forEach(item => {
         xml += `<${preTag}>`
-        for (let key in item) {
-          key = camalize(key)
-          xml += `<${key}>${item[key]}</${key}>`
+        for (const key in item) {
+          xml += `<${_.camelCase(key)}>${item[key]}</${_.camelCase(key)}>`
         }
         xml += `</${preTag}>`
       })
