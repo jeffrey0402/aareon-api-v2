@@ -87,7 +87,7 @@ router.post('/', async (req, res) => {
       })
       sendRes(res, 200, newMeasurements, 'success')
     } catch (error) {
-      sendRes(res, 400, 'error inserting data', 'error')
+      sendRes(res, 400, 'error inserting data (duplicate?)', 'error')
     }
 
     // Check if battery from dataResult is low, and if so update sensor in DB with battery = 0
@@ -159,7 +159,7 @@ router.post('/', async (req, res) => {
       })
       sendRes(res, 200, newMeasurements, 'success')
     } catch (error) {
-      sendRes(res, 400, 'error inserting data', 'error')
+      sendRes(res, 400, 'error inserting data (duplicate?)', 'error')
     }
 
     // Check if battery from dataResult is low, and if so update sensor in DB with battery = 0

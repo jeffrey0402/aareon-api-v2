@@ -61,7 +61,7 @@ router.post('/', async (req, res) => {
   }
 
   async function createMeasurement (
-    value: number,
+    value: string,
     timestamp: string,
     deviceUuid: string,
     typeName: string
@@ -70,7 +70,7 @@ router.post('/', async (req, res) => {
     try {
       const newMeasurement = await prisma.measurements.create({
         data: {
-          value,
+          value: parseFloat(value),
           timestamp: timestampDate,
           sensor_device_uuid: deviceUuid,
           type_name: typeName,
@@ -78,10 +78,9 @@ router.post('/', async (req, res) => {
           updated_at: new Date()
         }
       })
-      sendRes(res, 201, newMeasurement, 'success')
+      sendRes(res, 200, newMeasurement, 'measurement')
     } catch (err) {
-      console.log(err)
-      sendRes(res, 400, 'internal server error', 'error')
+      sendRes(res, 400, 'measurement not unique', 'error')
     }
   }
 })

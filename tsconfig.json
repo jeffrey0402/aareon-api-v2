@@ -5,9 +5,11 @@
     "strict": true,
     "lib": ["esnext", "dom"],
     "esModuleInterop": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+    "allowJs": true // enable patch.js
   },
   "include": [
 		"./**/*.ts",
+    "./patch.js"
 	]
 }

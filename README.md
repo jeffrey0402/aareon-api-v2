@@ -6,7 +6,7 @@
 
 [Nodejs 16.x]( https://nodejs.dev/)
 
-Java
+Java (java en javac in path)
 
 [pnpm](https://pnpm.io/installation)
 
@@ -24,9 +24,11 @@ Installeer packages: `npm i`
 
 Run dev environment: `npm run dev`
 
-Build project (linux): `npm run build`
+Build project (servers / deployment, linux only): `npm run build`
 
 Build project (all) `npm run buildall`
+
+Run gebuild project: `node build/server.js`
 
 
 
@@ -115,3 +117,17 @@ PORT=8080
 # database
 DATABASE_URL="sqlserver://jeffreyroossien.nl:1433;database=database_1;user=nhlstenden;password=***REMOVED***;trustServerCertificate=true;encrypt=false"
 ```
+
+
+
+## Werking
+
+Deze api verwerkt de endpoints op basis van de content-type van de body, en valideert de xml of json body.
+
+Vervolgens wordt de data in de database gezet met behulp van een ORM genaamd prisma.
+
+
+
+## Onderhoud
+
+Nieuwe endpoints kunnen worden aangemaakt in de routes map, en vervolgens in routes.ts toegevoegd worden. Schema's moeten voor deze endpoints nog wel aangemaakt worden.

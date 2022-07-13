@@ -8,7 +8,7 @@
                 <xs:element name = "value" type = "xs:integer" />
                 <xs:element name = "timestamp" type = "xs:positiveInteger" />
                 <!-- Device deviceUuid, ex: 0018B21000008C47 -->
-                <xs:element name = "deviceUuid" type = "xs:string">
+                <xs:element name = "deviceUuid">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="([0-9A-F]{16})"/>

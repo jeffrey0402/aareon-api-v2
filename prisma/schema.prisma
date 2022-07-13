@@ -16,6 +16,7 @@ model companies {
   locations            locations[]
 }
 
+// (laravel specific tabel)
 model failed_jobs {
   id         BigInt   @id(map: "PK__failed_j__3213E83FFB278CDA") @default(autoincrement())
   uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.NVarChar(191)
@@ -71,13 +72,14 @@ model measurements {
   @@index([type_name], map: "measurements_type_name_index")
 }
 
+// (laravel specific tabel)
 model migrations {
   id        Int    @id(map: "PK__migratio__3213E83F47B45E71") @default(autoincrement())
   migration String @db.NVarChar(191)
   batch     Int
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client. (laravel specific tabel)
 model password_resets {
   email      String    @db.NVarChar(191)
   token      String    @db.NVarChar(191)
@@ -86,7 +88,7 @@ model password_resets {
   @@index([email], map: "password_resets_email_index")
   @@ignore
 }
-
+// (laravel specific tabel)
 model personal_access_tokens {
   id             BigInt    @id(map: "PK__personal__3213E83FC6C060C5") @default(autoincrement())
   tokenable_type String    @db.NVarChar(191)
@@ -150,6 +152,7 @@ model sensors {
   sensor_type_tresholds sensor_type_tresholds[]
 }
 
+// (laravel specific tabel)
 model sessions {
   id            String  @id(map: "sessions_id_primary") @db.NVarChar(191)
   user_id       BigInt?
@@ -162,6 +165,7 @@ model sessions {
   @@index([user_id], map: "sessions_user_id_index")
 }
 
+// MSSQL specific tabel
 model sysdiagrams {
   name         String @db.NVarChar(128)
   principal_id Int
