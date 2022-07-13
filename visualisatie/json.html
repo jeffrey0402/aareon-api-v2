@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Live Data chart voor Dataprocessing</title>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8hammerjs@2.0.8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"
+        integrity="sha512-F+u8eWHrfY8Xw9BLzZ8rG/0wIvs0y+JyRJrXjp3VjtFPylAEEGwKbua5Ip/oiVhaTDaDs4eU2Xtsxjs/9ag2bQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="path/to/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.min.js"></script>
+</head>
+
+<body>
+    <canvas id="myChart" width="400" height="200"></canvas>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // Gebruik deze URL wanneer de api offline is. Vereist natuurlijk dat de api lokaal draait op poort 8080.
+        let baseUrl = "http://localhost:8080/measurement";
+        // let baseUrl = "https://aareon-api.jeffreyroossien.nl/measurement";
+        let sensorId = "0018B21000008C47"; // 0018B21000008C47, 0018B21000008CC1, 0018B21000008CF1, 0018B21000008CF4
+        let type = "co2"; // temperature, humidity, co2'
+        let minDate = new Date() -7*24*60*60*1000; // 7 dagen geleden
+
+        let url = `${baseUrl}/${sensorId}/${type}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.map(item => item.timestamp);
+                const values = data.map(item => item.value);
+                const myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: type,
+                            data: values,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 2,
+                            pointRadius: 1,
+                            pointHoverRadius: 5,
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                            },
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day',
+                                    // round: 'hour',
+                                },
+                                stepSize: 1,
+                                displayFormats: {
+                                    day: 'MMM DD'
+                                },
+                                min: minDate,
+                                max: '2022-07-14'
+                            }
+                        },
+                        tension: 0,
+                        plugins: {
+                            zoom: {
+                                zoom: {
+                                wheel: {
+                                    enabled: true,
+                                },
+                                pinch: {
+                                    enabled: true
+                                },
+                                mode: 'x',
+                                }
+                            },
+                            decimation: {
+                                enabled: true,
+                                algorithm: 'lttb',
+                            }
+                        }
+                    }
+                });
+            });
+
+    </script>
+</body>
+
+</html>

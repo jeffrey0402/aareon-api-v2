@@ -116,6 +116,28 @@ router.get('/:deviceUuid', async (req, res) => {
   }
 })
 
+// find measurements by deviceUuid and typeName
+router.get('/:deviceUuid/:typeName', async (req, res) => {
+  try {
+    const measurement = await prisma.measurements.findMany({
+      where: {
+        sensor_device_uuid: req.params.deviceUuid,
+        type_name: req.params.typeName
+      },
+      orderBy: {
+        timestamp: 'desc'
+      }
+    })
+    if (measurement) {
+      sendArrRes(res, 200, measurement, 'measurement')
+    } else {
+      sendRes(res, 404, 'measurement not found', 'error')
+    }
+  } catch (err) {
+    sendRes(res, 400, 'internal server error', 'error')
+  }
+})
+
 // No patch route, as it makes no sense to update a measurement.
 
 // This route deletes all measurements of a device.

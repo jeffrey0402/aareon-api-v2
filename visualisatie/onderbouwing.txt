@@ -1,0 +1,8 @@
+Deze pagina's laten line charts van de data van de sensoren zien.
+Op dit moment laten de grafieken de afgelopen 7 dagen zien, met data punten om de ~20 minuten. Dit is gedaan om accurate metingen te kunnen zien van de afgelopen week, en eventuele spikes in het systeem te kunnen zien.
+
+Op de productie site staat deze zelfde grafiek zonder api calls, met configureerbare sensor Id en type. 
+
+(af en toe mist er data. Dit komt omdat mijn server / ziggo soms storing heeft.)
+
+Om dit te draaien is het nodig dat de API lokaal draait op poort 8080.
