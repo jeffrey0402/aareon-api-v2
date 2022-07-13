@@ -1,4 +1,5 @@
 import { Response } from 'express'
+import _ from 'lodash'
 /**
  * Build response based on the client Accept header.
  * It takes a response object, a status code, some data, and a pre-tag, and then it formats the response based on the request's Accept header.
@@ -15,7 +16,11 @@ const sendRes = (response: Response, statusCode: number, data: any, preTag: stri
           message: data
         })
       } else {
-        response.status(statusCode).json(data)
+        // remove replace keys with camelcase values
+        const newData = _.mapKeys(data, (value: any, key: any) => {
+          return _.camelCase(key)
+        })
+        response.status(statusCode).json(newData)
       }
     },
     'application/xml': () => {
@@ -42,23 +47,6 @@ const sendRes = (response: Response, statusCode: number, data: any, preTag: stri
     }
   })
 }
-
-// function toCamelCase (str: string) {
-//   let newStr = ''
-//   if (str) {
-//     const wordArr = str.split(/[-_]/g)
-//     for (const i in wordArr) {
-//       if (i > 0) {
-//         newStr += wordArr[i].charAt(0).toUpperCase() + wordArr[i].slice(1)
-//       } else {
-//         newStr += wordArr[i]
-//       }
-//     }
-//   } else {
-//     return newStr
-//   }
-//   return newStr
-// }
 const camalize = function camalize (str: string) {
   return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
 }

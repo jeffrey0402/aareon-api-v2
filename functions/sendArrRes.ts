@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { Response } from 'express'
 /**
  * Build response based on the client Accept header.
@@ -16,7 +17,13 @@ const sendArrRes = (response: Response, statusCode: number, data: Array<any>, pr
           message: data
         })
       } else {
-        response.status(statusCode).json(data)
+        // remove replace keys with camelcase values
+        const newData = _.map(data, (value: any, key: any) => {
+          return _.mapKeys(value, (value: any, key: any) => {
+            return _.camelCase(key)
+          })
+        })
+        response.status(statusCode).send(newData)
       }
     },
     'application/xml': () => {
