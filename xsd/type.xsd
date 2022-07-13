@@ -27,6 +27,9 @@
                             <xs:enumeration value="Kelvin"/>
                             <xs:enumeration value="Boolean"/>
                             <xs:enumeration value="Percentage"/>
+                            <xs:enumeration value="ppm"/>
+                            <xs:enumeration value="%"/>
+                            <xs:enumeration value="°C"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>

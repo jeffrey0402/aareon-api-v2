@@ -5,15 +5,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 
 /** Routes */
-import userRoute from './routes/users'
-import companyRoute from './routes/company'
-import locationRoute from './routes/location'
-import malfunctionContactRoute from './routes/malfunctionContact'
-import measurementRoute from './routes/measurement'
-import encodedMeasurementRoute from './routes/encodedMeasurement'
-import roleRoute from './routes/role'
-import roomRoute from './routes/room'
-import sensorRoute from './routes/sensor'
+import routes from './routes/routes'
 
 require('./patch.js')
 
@@ -43,15 +35,8 @@ router.use((req, res, next) => {
   next()
 })
 
-router.use('/user', userRoute)
-router.use('/company', companyRoute)
-router.use('/location', locationRoute)
-router.use('/malfunctionContact', malfunctionContactRoute)
-router.use('/measurement', measurementRoute)
-router.use('/addData', encodedMeasurementRoute)
-router.use('/role', roleRoute)
-router.use('/room', roomRoute)
-router.use('/sensor', sensorRoute)
+// Enable routes
+router.use('/', routes)
 
 /** Error handling */
 router.use((req, res, next) => {

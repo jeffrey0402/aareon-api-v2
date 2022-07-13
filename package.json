@@ -23,7 +23,8 @@
   "main": "server.ts",
   "scripts": {
     "dev": "nodemon server.ts",
-    "build": "rm -rf build/ && tsc"
+    "build": "rm -rf build/ && tsc",
+    "buildall": "tsc --build"
   },
   "dependencies": {
     "@adeunis/codecs": "^1.6.1",

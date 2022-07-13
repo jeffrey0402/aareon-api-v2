@@ -39,7 +39,10 @@
                 "Fahrenheit",
                 "Kelvin",
                 "Boolean",
-                "Percentage"
+                "Percentage",
+                "ppm",
+                "%",
+                "°C"
             ],
             "examples": [
                 "Celsius",
