@@ -114,7 +114,7 @@ Beide headers kunnen de waarden `application/json` of `application/xml` hebben.
 PORT=8080
 
 # database
-DATABASE_URL="sqlserver://jeffreyroossien.nl:1433;database=database_1;user=nhlstenden;password=***REMOVED***;trustServerCertificate=true;encrypt=false"
+DATABASE_URL="sqlserver://jeffreyroossien.nl:1433;database=database_1;user=nhlstenden;password=password;trustServerCertificate=true;encrypt=false"
 ```
 
 
