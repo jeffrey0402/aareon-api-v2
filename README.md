@@ -8,8 +8,6 @@
 
 Java (java en javac in path)
 
-[pnpm](https://pnpm.io/installation)
-
 
 
 Java is nodig om XML te valideren. 
@@ -110,6 +108,7 @@ Via de `Accept` Header kan gespecificeerd worden welk format de return data moet
 Beide headers kunnen de waarden `application/json` of `application/xml` hebben.
 
 ## .env file 
+
 ```
 # server configuration
 PORT=8080
