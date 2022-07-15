@@ -131,7 +131,7 @@ Vervolgens wordt de data in de database gezet met behulp van een ORM genaamd pri
 
 Nieuwe endpoints kunnen worden aangemaakt in de routes map, en vervolgens in routes.ts toegevoegd worden. Schema's moeten voor deze endpoints nog wel aangemaakt worden.
 
-Om nieuwe endpoints toe te voegen, moet als eerst de nieuwste versie van de database tabellen "gepulled" worden. Dit kan met `npx prisma db pull`.
+Om nieuwe endpoints toe te voegen, moet als eerst de nieuwste versie van de database tabellen "gepulled" worden. Dit kan met `npx prisma db pull`. Meer info op [prisma.io]( https:/prisma.io/client)
 
 Vervolgens moet gecontroleerd worden of de huidige endpoints nog werken. 
 
