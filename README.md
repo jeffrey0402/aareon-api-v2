@@ -140,3 +140,24 @@ Wanneer dit gedaan is, kan in de routes folder een nieuwe endpoint gemaakt worde
 Deze route kan vervolgens in `routes/routes.ts` geimporteerd worden.
 
 Indien nodig kunnen schema's worden gebruikt om de input van de request body te valideren. De XSD schemas zijn te vinden in `xsd`, en de draft-07 schema's in `schemas/draft-07`.
+
+## Structuur
+
+De structuur van de applicatie is verder als volgt:
+
+- `functions`: Functies die meerdere endpoints of bestanden gebruiken.
+- `prisma`: De map met prisma schema's en andere prisma bestanden. Nodig voor de Prisma module.
+- `routes`: Routes voor de endpoints. Deze routes moeten verder in routes.ts Worden geimporteerd.
+- `schemas/draft-07`: draft-07 json schemas. Deze schemas kunnen hier staan, omdat deze geimporteerd kunnen worden in de TS compiler.
+- `xsd`: XSD schema's. Deze staan op deze specifieke locatie, omdat de TS compiler deze bestanden niet mee neemt bij de ts > js stap, en dus niet in de build folder zal staan.
+- `visualisatie`: Niet nodig voor de werking van de applicatie, maar bevat webpagina's waarop de sensor data in een grafiek te zien is.
+
+Overige bestanden:
+
+- `.env`: Bevat environment variables. Niet nodig voor werking wanneer deze variabelen in de command line meegegeven worden.
+- `.eslint.json`: eslint configuratie. Niet nodig voor de werking, maar zorgt voor een consistente coding style.
+- `.ecosystem.config.js`: pm2 config bestand. Nodig voor linux server deployment met pm2.
+- `patch.js`: kleine patch zodat het type BigInt naar json geparsed kan worden. 
+- `README.md`: Dit bestand
+- `server.ts`: root van de applicatie, dit wordt als eerst uitgevoerd.
+- `tsconfig.json`: TS compiler configuratie.
