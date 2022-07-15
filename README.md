@@ -6,7 +6,7 @@
 
 [Nodejs 16.x]( https://nodejs.dev/)
 
-Java (java en javac in path)
+Java 8 of nieuwer (java en javac in path)
 
 
 
@@ -130,3 +130,13 @@ Vervolgens wordt de data in de database gezet met behulp van een ORM genaamd pri
 ## Onderhoud
 
 Nieuwe endpoints kunnen worden aangemaakt in de routes map, en vervolgens in routes.ts toegevoegd worden. Schema's moeten voor deze endpoints nog wel aangemaakt worden.
+
+Om nieuwe endpoints toe te voegen, moet als eerst de nieuwste versie van de database tabellen "gepulled" worden. Dit kan met `npx prisma db pull`.
+
+Vervolgens moet gecontroleerd worden of de huidige endpoints nog werken. 
+
+Wanneer dit gedaan is, kan in de routes folder een nieuwe endpoint gemaakt worden. Zie voor referentie hiervoor `routes/users.ts`
+
+Deze route kan vervolgens in `routes/routes.ts` geimporteerd worden.
+
+Indien nodig kunnen schema's worden gebruikt om de input van de request body te valideren. De XSD schemas zijn te vinden in `xsd`, en de draft-07 schema's in `schemas/draft-07`.
