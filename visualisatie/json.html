@@ -5,12 +5,11 @@
     <meta charset='utf-8'>
     <title>Live Data chart voor Dataprocessing</title>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js></script>
-    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8hammerjs@2.0.8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js"
         integrity="sha512-F+u8eWHrfY8Xw9BLzZ8rG/0wIvs0y+JyRJrXjp3VjtFPylAEEGwKbua5Ip/oiVhaTDaDs4eU2Xtsxjs/9ag2bQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script src="path/to/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 
 <body>
@@ -24,6 +23,7 @@
         let sensorId = "0018B21000008C47"; // 0018B21000008C47, 0018B21000008CC1, 0018B21000008CF1, 0018B21000008CF4
         let type = "co2"; // temperature, humidity, co2'
         let minDate = new Date() -7*24*60*60*1000; // 7 dagen geleden
+        let today = new Date();
 
         let url = `${baseUrl}/${sensorId}/${type}`;
         fetch(url)
@@ -65,7 +65,7 @@
                                     day: 'MMM DD'
                                 },
                                 min: minDate,
-                                max: '2022-07-14'
+                                max: today
                             }
                         },
                         tension: 0,

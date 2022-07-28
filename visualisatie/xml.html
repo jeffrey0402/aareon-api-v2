@@ -23,6 +23,7 @@
         let sensorId = "0018B21000008C47"; // 0018B21000008C47, 0018B21000008CC1, 0018B21000008CF1, 0018B21000008CF4
         let type = "temperature"; // temperature, humidity, co2
         let minDate = new Date() -7*24*60*60*1000; // 7 dagen geleden
+        let today = new Date();
 
         let url = `${baseUrl}/${sensorId}/${type}`;
         fetch(url, {
@@ -82,7 +83,7 @@
                                     day: 'MMM DD'
                                 },
                                 min: minDate,
-                                max: '2022-07-14'
+                                max: today
                             }
                         },
                         tension: 0,
