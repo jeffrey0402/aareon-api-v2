@@ -25,6 +25,7 @@
   "scripts": {
     "dev": "nodemon server.ts",
     "build": "rm -rf build/ && tsc",
+    "postinstall": "npx prisma generate",
     "buildall": "tsc --build"
   },
   "dependencies": {
