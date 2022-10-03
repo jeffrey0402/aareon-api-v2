@@ -20,6 +20,8 @@ Meer info: https://github.com/nikku/node-xsd-schema-validator#readme
 
 Installeer packages: `npm i`
 
+Initialiseer prismadb: `npx prisma generate`
+
 Run dev environment: `npm run dev`
 
 Build project (servers / deployment, linux only): `npm run build`
